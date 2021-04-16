@@ -12,7 +12,7 @@ Many of the IOCTLs that can be sent to the device simply check the input and out
 - `__writemsr`
 - `__out[byte][[d]word]`
 
-So basically you can abuse the heck out of this. (Why is this WHCP signed?)
+So basically you can abuse the heck out of this. (Why is this thing WHCP signed?)
 ## The code
 The one C file (`main.c`) is the source of a sample program that will attempt to open the device, map ten consecutive physical memory ranges starting from 0, each 4KB in size, and then read the kernel GS base MSR register.
 
