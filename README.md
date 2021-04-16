@@ -1,5 +1,5 @@
 # CorsairLLeak
-Map physical addresses into userspace (RW), read/write MSRs, send/recieve data on I/O ports, and query/set bus configuration data with this Corsair LL Access driver.
+Map physical addresses into userspace (RW), read/write MSRs, send/recieve data on I/O ports, and query/set bus configuration data with the Corsair LL Access driver.
 ## How it works
 The LL access driver has almost no security permissions. It calls `IoCreateDevice()` and `IoCreateSymbolicLink()` with all default parameters	, therefore granting everyone all access to the device object. However, `IRP_MJ_CREATE` is handled and the driver calls `SeQueryInformationToken` to verify that the caller's integrity level is at least High. Otherwise it returns `STATUS_ACCESS_DENIED`.
 
@@ -12,7 +12,7 @@ Many of the IOCTLs that can be sent to the device simply check the input and out
 - `__writemsr`
 - `__out[byte][[d]word]`
 
-So basically you can abuse the heck out of this.
+So basically you can abuse the heck out of this. (Why is this WHCP signed?)
 ## The code
 The one C file (`main.c`) is the source of a sample program that will attempt to open the device, map ten consecutive physical memory ranges starting from 0, each 4KB in size, and then read the kernel GS base MSR register.
 
